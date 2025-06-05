@@ -1,0 +1,21 @@
+{
+  "name": "Node_Desafio_II",
+  "version": "1.0.0",
+  "description": "<br><br>",
+  "author": "Cristoffer Venega DLC",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js"
+  },
+  "keywords": [],
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10",
+    "standard": "^17.1.2"
+  }
+}

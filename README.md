@@ -3,8 +3,7 @@
 
 
 - (Desafio I) Veterinaria
-
-
+- (Desafio II) Mi Repertorio
 
 
 Desafio Latam

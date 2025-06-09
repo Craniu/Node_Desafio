@@ -5,11 +5,10 @@ import { writeFile, readFile } from "fs/promises";
 const leerArchivo = async () => {
     try {
         console.log("Leyendo archivo...");
-        console.log(JSON.parse(await readFile('./data/repertorio.json', 'utf8')))
         return JSON.parse(await readFile('./data/repertorio.json', 'utf8'))
     }catch (e) {
-        console.log("hola");
-        await writeFile("repertorio.json", "[]");
+        console.error("Error al leer el archivo:", e);
+        await writeFile('./data/repertorio.json', "[]");
         return [];
     }
 }
@@ -33,7 +32,7 @@ const agregarCancion = async (cancion) => {
 
 const eliminarCancion = async (titulo) => {
     const canciones = await leerArchivo();
-    const index = canaciones.findIndex(c => c.titulo === titulo);
+    const index = canciones.findIndex(c => c.titulo === titulo);
     if (index !== -1) {
         const cancionEliminada = canciones.splice(index, 1);
         await escribirArchivo(canciones);

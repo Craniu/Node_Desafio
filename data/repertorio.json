@@ -1,8 +1,14 @@
 [
   {
-    "id": "1",
-    "titulo": "Repertorio de Acordes",
-    "artista": "Una colección de acordes comunes para guitarra.",
-    "tono": "bla bla"
+    "id": 1,
+    "titulo": "dasdas",
+    "artista": "dasdasda",
+    "tono": "C"
+  },
+  {
+    "id": 2,
+    "titulo": "dasdas",
+    "artista": "dasdasda",
+    "tono": "C"
   }
 ]

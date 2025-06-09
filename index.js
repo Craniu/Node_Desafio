@@ -1,23 +1,26 @@
 import express from "express";
+import cors from "cors";
 import 'dotenv/config';
 import { leerArchivo, escribirArchivo, agregarCancion, eliminarCancion } from "./data/script.js";
-import { writeFile, readFile } from "fs/promises";
-
+//import { writeFile, readFile } from "fs/promises";
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 
+//Declareichons
 const port = process.env.PORT || 3000;
-
-app.get("/", (req, res) => {
-    res.send("Desafio II")
-})
 
 //METODOS
 
 //GET
-app.get("/canciones", (req, res) => {
-    res.send(leerArchivo());
+app.get("/", (req, res) => {
+    res.json({"Desafio": "Desafio II"})
+})
+
+app.get("/canciones", async (req, res) => {
+    const canciones = await leerArchivo();
+    res.send(canciones);
 });
 
 //POST
@@ -32,20 +35,42 @@ app.post("/canciones", (req, res) => {
 });
 
 //PUT
-app.put("/canciones/:id", (req, res) => {
+app.put("/canciones/:id", async (req, res) => {
     const {id} = req.params;
     const {titulo, artista, tono} = req.body;
-    const canciones = leerArchivo();
+
+    if (!titulo || !artista || !tono) {
+        return res.status(400).send({ message: "Faltan datos en el body" });
+    }
+
+    const canciones = await leerArchivo();
     const index = canciones.findIndex(c => c.id === parseInt(id));
+
     if (index !== -1) {
-        canciones[index] = { titulo, artista, tono };
-        escribirArchivo(canciones);
+        console.log(id);
+        canciones[index] = { id: parseInt(id),titulo, artista, tono };
+        await escribirArchivo(canciones);
         res.status(200).send({ message: "Canción actualizada", cancion: canciones[index] });
     } else {
+        console.log(id);
         res.status(404).send({ message: "Canción no encontrada" });
     }
 });
 
+//DELETE
+app.delete("/canciones/:id", async (req, res) => {
+    const { id } = req.params;
+    const canciones = await leerArchivo();
+    const index = canciones.findIndex(c => c.id === parseInt(id));
+
+    if (index !== -1) {
+        const cancionEliminada = canciones.splice(index, 1);
+        await escribirArchivo(canciones);
+        res.status(200).send({ message: "Canción eliminada", cancion: cancionEliminada });
+    } else {
+        res.status(404).send({ message: "Canción no encontrada" });
+    } 
+})
 
 
 //Levanto el server

@@ -1,15 +1,15 @@
-import { pool} from '../config/db.js';
+import {pool} from '../../DB/config.js';
 
-export const getAllPosts = async () => {
+export const getAllPostsModel = async () => {
     const query = 'SELECT * FROM posts';
     const response = await pool.query(query);
     return response.rows;
 }
 
-export const createPost = async (post) => {
+export const createPostModel = async (titulo, img, descripcion) => {
     const query = {
         text: 'insert into posts (titulo, img, descripcion, likes) values ($1, $2, $3, 0) returning *',
-        values: [post.titulo, post.img, post.descripcion]
+        values: [titulo, img, descripcion]
     }
     const response = await pool.query(query);
     console.log("row solo: ",response.rows);

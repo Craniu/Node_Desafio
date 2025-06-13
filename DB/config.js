@@ -1,7 +1,7 @@
 import pg from 'pg';
 import 'dotenv/config';
 
-const pool = new pg.Pool({
+export const pool = new pg.Pool({
     host: process.env.DB_HOST,
     port: process.env.DB_PORT,
     user: process.env.DB_USER,
@@ -17,5 +17,3 @@ pool.query('SELECT NOW()', (err, res) => {
         console.log('Conexion a la base de datos exitosa:', res.rows[0].now);
     }
 })
-
-export default pool;

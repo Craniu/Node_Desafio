@@ -1,7 +1,7 @@
 import {pool} from '../../DB/config.js';
 
 export const getAllPostsModel = async () => {
-    const query = 'SELECT * FROM posts';
+    const query = 'select * from posts';
     const response = await pool.query(query);
     return response.rows;
 }
